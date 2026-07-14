@@ -1,0 +1,5 @@
+<ruleset name="SNORDIAN's H5P Themer">
+    <rule ref="WordPress" />
+    <file>./includes</file>
+    <file>ndlas-h5p-extractor.php</file>
+</ruleset>

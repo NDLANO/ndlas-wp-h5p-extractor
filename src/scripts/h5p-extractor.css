@@ -1,0 +1,45 @@
+.ndla-h5p-extractor-button-wrapper {
+  display: flex;
+  margin-left: 0;
+  margin-top: 0;
+  width: 100%;
+}
+
+.ndla-h5p-extractor-representation {
+  background: #ffffff;
+  border: 1px solid #888888;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+
+  .ndla-h5p-extractor-representation-solution {
+    border-top: 1px dotted #888888;
+    font-style: italic;
+    padding-block-start: 0.5rem;
+    text-align: end;
+    transform: scaleX(-1);
+  }
+}
+
+.h5p-wp-admin-wrapper {
+  .ndla-h5p-extractor-button {
+    left: 0;
+    margin-block-start: 1rem;
+    position: absolute;
+  }
+
+  .ndla-h5p-extractor-button {
+    position: relative;
+  }
+
+  .ndla-h5p-extractor-representation {
+    margin-block-start: 1rem;
+  }
+}
+

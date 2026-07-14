@@ -1,0 +1,10 @@
+{
+    "require": {
+        "snordian/h5p-extractor": "0.5.2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

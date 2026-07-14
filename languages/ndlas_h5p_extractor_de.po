@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2026-07-13 18:52+0200\n"
+"PO-Revision-Date: 2026-07-13 18:52+0200\n"
+"Last-Translator: Sustainum-H5P-Content-Type-Hub-Manager\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ndlas-h5p-extractor.php\n"
+"X-Poedit-SearchPath-2: includes\n"
+"X-Poedit-SearchPath-3: includes/class-main.php\n"
+"X-Poedit-SearchPathExcluded-0: js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: src\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
+
+#: includes/class-main.php:417
+msgid "Extract"
+msgstr "Extrahiere"
+
+#: includes/class-options.php:77
+msgid "H5P Extractor"
+msgstr "H5P Extractor"
+
+#: includes/class-options.php:87
+msgid "Show solutions"
+msgstr "Zeige Lösungen"
+
+#: includes/class-options.php:99
+msgid "Show solutions underneath the extracted H5P content."
+msgstr "Zeige die Lösungen unterhalb des extrahierten H5P-Inhalts."
+
+#: ndlas-h5p-extractor.php:89
+msgid "Note: This plugin requires the H5P plugin."
+msgstr "Hinweis: Dieses Plugin benötigt das H5P-Plugin."

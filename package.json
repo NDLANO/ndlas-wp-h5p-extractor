@@ -9,7 +9,7 @@
     "H5P",
     "Theme"
   ],
-  "author": "OLiver Tacke",
+  "author": "Oliver Tacke",
   "license": "MIT",
   "type": "module",
   "devDependencies": {

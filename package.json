@@ -1,5 +1,5 @@
 {
-  "name": "h5p-themer",
+  "name": "ndlas-h5p-extractor",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
@@ -9,7 +9,7 @@
     "H5P",
     "Theme"
   ],
-  "author": "Oliver Tacke",
+  "author": "NDLA, Oliver Tacke",
   "license": "MIT",
   "type": "module",
   "devDependencies": {

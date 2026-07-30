@@ -27,17 +27,6 @@ jobs:
       - name: Update Composer dependencies (for git-based dependencies)
         run: composer update
 
-      - name: Extract version from plugin header
-        run: |
-          VERSION=$(grep -A1 'Version:' ndlas-h5p-extractor.php \
-            | grep -oP '[0-9]+(?:\.[0-9]+)*' | head -1)
-          if [ -z "$VERSION" ]; then
-            echo "Error: could not find Version in plugin header." >&2
-            exit 1
-          fi
-          echo "Detected version: $VERSION"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-
       - name: Set up exclusion list
         run: |
           # Define excluded files/directories
@@ -46,7 +35,7 @@ jobs:
 
       - name: Create ZIP file
         run: |
-          ZIP_NAME="ndlas-h5p-extractor-${{ env.VERSION }}.zip"
+          ZIP_NAME="ndlas-h5p-extractor.zip"
           ZIP_PATH="${RUNNER_TEMP}/${ZIP_NAME}"
           echo "ZIP_NAME=${ZIP_NAME}" >> $GITHUB_ENV
           echo "ZIP_PATH=${ZIP_PATH}" >> $GITHUB_ENV

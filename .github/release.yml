@@ -41,7 +41,7 @@ jobs:
       - name: Set up exclusion list
         run: |
           # Define excluded files/directories
-          EXCLUSIONS=".github .git .gitignore docs composer.json composer.lock node_modules package.json package-lock.json phpcs.xml src webpack.config.js"
+          EXCLUSIONS=".github .git .gitignore docs composer.lock node_modules package.json package-lock.json phpcs.xml src webpack.config.js"
           echo "EXCLUSIONS=${EXCLUSIONS}" >> $GITHUB_ENV
 
       - name: Create ZIP file

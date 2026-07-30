@@ -377,7 +377,9 @@ class Main {
 
 			$extract = $extractor->extract( $extract_args );
 		} catch ( \Throwable $e ) {
-			error_log( $e );
+			// This is meant to be written to the logfile.
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( $e->getMessage() );
 			return null;
 		}
 

@@ -4,7 +4,7 @@ Tags: h5p, accessibility, licensing
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.0
-Stable tag: 1.1.5
+Stable tag: 0.0.1
 License: MIT
 License URI: https://github.com/NDLANO/ndlas-h5p-extractor/blob/master/LICENSE
 

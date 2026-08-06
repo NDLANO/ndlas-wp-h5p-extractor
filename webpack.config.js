@@ -1,5 +1,6 @@
 import { dirname, resolve as _resolve, join } from 'path';
 import { fileURLToPath } from 'url';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 
@@ -33,7 +34,8 @@ export default {
             drop_console: true,
           }
         }
-      })
+      }),
+      ...(mode === 'production' ? [new CssMinimizerPlugin()] : []),
     ]
   },
   plugins: [

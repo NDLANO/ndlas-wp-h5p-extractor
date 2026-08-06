@@ -1,0 +1,16 @@
+.git
+.github
+.gitignore
+.npmrc
+.releaseignore
+.stylelintrc.json
+composer.json
+composer.lock
+docs
+eslint.config.js
+node_modules
+package-lock.json
+package.json
+phpcs.xml
+src
+webpack.config.js

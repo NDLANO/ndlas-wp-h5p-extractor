@@ -55,6 +55,40 @@ class Options {
 	}
 
 	/**
+	 * Init function for the class.
+	 */
+	public static function init() {
+		self::$options = get_option( self::$option_slug, false );
+	}
+
+	/**
+	 * Get extraction mode option.
+	 *
+	 * @return string Extraction mode.
+	 */
+	public static function get_extraction_mode() {
+		return ( isset( self::$options['extraction_mode'] ) ) ? self::$options['extraction_mode'] : 'off';
+	}
+
+	/**
+	 * Get show solutions option.
+	 *
+	 * @return bool Show solutions.
+	 */
+	public static function get_show_solutions() {
+		return ( isset( self::$options['show_solutions'] ) ) ? (bool) self::$options['show_solutions'] : false;
+	}
+
+	/**
+	 * Get allow override option.
+	 *
+	 * @return bool Allow override.
+	 */
+	public static function get_allow_override() {
+		return ( isset( self::$options['allow_override'] ) ) ? (bool) self::$options['allow_override'] : false;
+	}
+
+	/**
 	 * Add options page.
 	 */
 	public function add_plugin_page() {
@@ -87,13 +121,6 @@ class Options {
 			</form>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Render the "Default behavior" settings section.
-	 */
-	private function render_default_behavior_section() {
-		// Intentionally empty — WordPress renders the <h3> from the section title.
 	}
 
 	/**
@@ -248,37 +275,10 @@ class Options {
 	}
 
 	/**
-	 * Get extraction mode option.
-	 *
-	 * @return string Extraction mode.
+	 * Render the "Default behavior" settings section.
 	 */
-	public static function get_extraction_mode() {
-		return ( isset( self::$options['extraction_mode'] ) ) ? self::$options['extraction_mode'] : 'off';
-	}
-
-	/**
-	 * Get show solutions option.
-	 *
-	 * @return bool Show solutions.
-	 */
-	public static function get_show_solutions() {
-		return ( isset( self::$options['show_solutions'] ) ) ? (bool) self::$options['show_solutions'] : false;
-	}
-
-	/**
-	 * Get allow override option.
-	 *
-	 * @return bool Allow override.
-	 */
-	public static function get_allow_override() {
-		return ( isset( self::$options['allow_override'] ) ) ? (bool) self::$options['allow_override'] : false;
-	}
-
-	/**
-	 * Init function for the class.
-	 */
-	public static function init() {
-		self::$options = get_option( self::$option_slug, false );
+	private function render_default_behavior_section() {
+		// Intentionally empty — WordPress renders the <h3> from the section title.
 	}
 }
 

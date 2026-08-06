@@ -37,34 +37,7 @@ if ( ! defined( 'NDLASH5PEXTRACTOR_VERSION' ) ) {
 require_once join( DIRECTORY_SEPARATOR, array( __DIR__, 'includes', 'class-capabilities.php' ) );
 require_once join( DIRECTORY_SEPARATOR, array( __DIR__, 'includes', 'class-main.php' ) );
 require_once join( DIRECTORY_SEPARATOR, array( __DIR__, 'includes', 'class-options.php' ) );
-
-/**
- * Main plugin class.
- *
- * @return object Main.
- */
-function init() {
-	// I prefer to keep load_plugin_textdomain, so this works without access to wordpress.org, too.
-  // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
-	load_plugin_textdomain(
-		'ndlas-h5p-extractor',
-		false,
-		dirname( plugin_basename( __FILE__ ) ) . '/languages'
-	);
-
-	return new Main();
-}
-
-/**
- * Handle plugin activation.
- */
-function on_activation() {
-	if ( ! dependencies_fulfilled() ) {
-		set_transient( 'ndlash5pextractor_h5p_not_installed', true, 30 );
-	}
-
-	Capabilities::add_capabilities();
-}
+require_once join( DIRECTORY_SEPARATOR, array( __DIR__, 'includes', 'class-request-handler.php' ) );
 
 /**
  * Check whether all dependencies are installed.
@@ -96,11 +69,39 @@ function display_admin_messages() {
 }
 
 /**
+ * Handle plugin activation.
+ */
+function on_activation() {
+	if ( ! dependencies_fulfilled() ) {
+		set_transient( 'ndlash5pextractor_h5p_not_installed', true, 30 );
+	}
+
+	Capabilities::add_capabilities();
+}
+
+/**
  * Handle plugin uninstallation.
  */
 function on_uninstall() {
 	Options::delete_options();
 	Capabilities::remove_capabilities();
+}
+
+/**
+ * Main plugin class.
+ *
+ * @return object Main.
+ */
+function init() {
+	// I prefer to keep load_plugin_textdomain, so this works without access to wordpress.org, too.
+  // phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound
+	load_plugin_textdomain(
+		'ndlas-h5p-extractor',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+
+	return new Main();
 }
 
 register_activation_hook( __FILE__, 'NDLA\H5PExtractor\on_activation' );

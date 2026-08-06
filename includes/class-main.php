@@ -396,9 +396,9 @@ class Main {
 	}
 
 	/**
-	 * Check if the current request is the H5P dashboard show page.
+	 * Check if current request is H5P dashboard show page.
 	 *
-	 * @return bool True if viewing H5P content in the WordPress dashboard.
+	 * @return bool True if viewing H5P content in WordPress dashboard.
 	 */
 	private function is_h5p_in_dashboard() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Not processing form values, just checking URL.
@@ -426,6 +426,59 @@ class Main {
 	}
 
 	/**
+	 * Register the H5P Extractor dashboard sidebar.
+	 *
+	 * Only registered when editing a post/page that contains H5P content and allow_override is enabled.
+	 */
+	public function register_dashboard_sidebar() {
+		if ( ! Options::get_allow_override() ) {
+			return;
+		}
+
+		$post = get_post();
+		if ( ! $post || empty( $post->post_content ) ) {
+			return;
+		}
+
+		if ( ! has_shortcode( $post->post_content, 'h5p' ) ) {
+			return;
+		}
+
+		add_meta_box(
+			'ndla_h5p_extractor_dashboard_help',
+			__( 'H5P Extractor', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_dashboard_sidebar_content' ),
+			$post->post_type,
+			'side'
+		);
+	}
+
+	/**
+	 * Render the dashboard sidebar content.
+	 */
+	public function render_dashboard_sidebar_content() {
+		?>
+		<p>
+			<?php esc_html_e( 'You can override the H5P Extractor behavior by adding key value pairs to the H5P shortcode:', 'ndlas-h5p-extractor' ); ?>
+		</p>
+		<ul>
+			<li>
+				<strong><code>ndla_extractor_mode</code></strong></br>
+				<code>off</code>, <code>button</code>, <code>automatic</code>
+			</li>
+			<li>
+				<strong><code>ndla_extractor_solutions</code></strong></br>
+				<code>true</code>, <code>false</code>
+			</li>
+		</ul>
+		<p><strong><?php esc_html_e( 'Example', 'ndlas-h5p-extractor' ); ?></strong></p>
+		<p>
+			<code>[h5p id="1" ndla_extractor="automatic"]</code>
+		</p>
+		<?php
+	}
+
+	/**
 	 * Build content-specific options from shortcode attributes.
 	 *
 	 * @param \WP_Post|null $post The current post, or null.
@@ -442,6 +495,7 @@ class Main {
 			return $options;
 		}
 
+		// Extract key value pairs from H5P shortcode.
 		$matches = array();
 		preg_match_all( '/\[h5p([^]]*)\]/', $post->post_content, $matches, PREG_SET_ORDER );
 		foreach ( $matches as $match ) {
@@ -474,6 +528,7 @@ class Main {
 		// Defer H5P detection to a later hook when post is available.
 		add_action( 'wp', array( $this, 'maybe_enqueue_assets' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_enqueue_assets' ) );
+		add_action( 'add_meta_boxes', array( $this, 'register_dashboard_sidebar' ) );
 
 		add_action( 'wp_ajax_ndlas_h5p_extractor_extract', array( $this, 'handle_request' ) );
 	}

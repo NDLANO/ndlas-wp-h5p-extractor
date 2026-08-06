@@ -459,7 +459,7 @@ class Main {
 	public function render_dashboard_sidebar_content() {
 		?>
 		<p>
-			<?php esc_html_e( 'You can override the H5P Extractor behavior by adding key value pairs to the H5P shortcode:', 'ndlas-h5p-extractor' ); ?>
+			<?php esc_html_e( 'You can override the H5P Extractor behavior by adding key-value pairs to the H5P shortcode:', 'ndlas-h5p-extractor' ); ?>
 		</p>
 		<ul>
 			<li>

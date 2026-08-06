@@ -163,7 +163,7 @@ class Options {
 			<?php checked( self::get_allow_override(), true ); ?>
 		/>
 		<label for="ndlash5pextractor_option_allow_override">
-			<?php esc_html_e( 'Content authors can override the default behavior per H5P content.', 'ndlas-h5p-extractor' ); ?>
+			<?php esc_html_e( 'Authors of posts and pages can override the default behavior per H5P content.', 'ndlas-h5p-extractor' ); ?>
 		</label>
 		<?php
 	}

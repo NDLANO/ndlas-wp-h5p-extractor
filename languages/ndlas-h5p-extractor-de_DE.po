@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2026-08-06 20:32+0200\n"
+"PO-Revision-Date: 2026-08-06 20:34+0200\n"
+"Last-Translator: Snordians Simple H5P Stats\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_html_e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ndlas-h5p-extractor.php\n"
+"X-Poedit-SearchPath-2: includes\n"
+"X-Poedit-SearchPath-3: includes/class-main.php\n"
+"X-Poedit-SearchPathExcluded-0: js\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: src\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
+
+#: includes/class-main.php:449 includes/class-options.php:77
+msgid "H5P Extractor"
+msgstr "H5P Extractor"
+
+#: includes/class-main.php:462
+msgid ""
+"You can override the H5P Extractor behavior by adding key-value pairs to the "
+"H5P shortcode:"
+msgstr ""
+"Du kannst das Verhalten von H5P Extractor überschreiben, indem du \"Key-"
+"Value\"-Paare in den \"H5P Shortcode\" einfügst:"
+
+#: includes/class-main.php:474
+msgid "Example"
+msgstr "Beispiel"
+
+#: includes/class-main.php:572
+msgid "Extract"
+msgstr "Extrahiere"
+
+#: includes/class-options.php:113
+msgid "Off"
+msgstr "Aus"
+
+#: includes/class-options.php:119
+msgid "Trigger by button"
+msgstr "Durch Button auslösen"
+
+#: includes/class-options.php:125
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: includes/class-options.php:130
+msgid "Set how extraction should be handled."
+msgstr "Lege fest, wie das Extrahieren gehandhabt werden soll."
+
+#: includes/class-options.php:148
+msgid "Show solutions underneath the extracted H5P content."
+msgstr "Zeige die Lösungen unterhalb des extrahierten H5P-Inhalts."
+
+#: includes/class-options.php:166
+msgid ""
+"Authors of posts and pages can override the default behavior per H5P content."
+msgstr ""
+"Autoren und Autorinnen von Posts und Seiten können das Standardverhalten je "
+"H5P-Inhalt überschreiben."
+
+#: includes/class-options.php:183
+msgid "Default behavior"
+msgstr "Standardverhalten"
+
+#: includes/class-options.php:190
+msgid "Extraction mode"
+msgstr "Extraktionsmodus"
+
+#: includes/class-options.php:198
+msgid "Solutions"
+msgstr "Lösungen"
+
+#: includes/class-options.php:206
+msgid "Overrides"
+msgstr "Manueller Eingriff"
+
+#: includes/class-options.php:213
+msgid "Allow override"
+msgstr "Manuellen Eingriff erlauben"
+
+#: ndlas-h5p-extractor.php:90
+msgid "Note: This plugin requires the H5P plugin."
+msgstr "Hinweis: Dieses Plugin benötigt das H5P-Plugin."

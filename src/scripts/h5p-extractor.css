@@ -36,6 +36,10 @@
 
   .ndla-h5p-extractor-button {
     position: relative;
+
+    &.display-none {
+      display: none;
+    }
   }
 
   .ndla-h5p-extractor-representation {

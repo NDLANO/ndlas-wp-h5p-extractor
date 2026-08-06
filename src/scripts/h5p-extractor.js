@@ -1,17 +1,31 @@
 import './h5p-extractor.css';
 
 (() => {
+  window.NDLASH5PEXTRACTOR.showSolutions = (typeof window.NDLASH5PEXTRACTOR.showSolutions === 'boolean') ?
+    window.NDLASH5PEXTRACTOR.showSolutions :
+    window.NDLASH5PEXTRACTOR.showSolutions === '1';
+
   const wrapperEntries = new WeakMap();
+  const contentSpecificOptions = window.NDLASH5PEXTRACTOR.contentSpecificOptions ?? [];
 
   /**
    * Run the main stuff.
    */
   const run = () => {
     const h5pDOMs = [...window.document.querySelectorAll('[data-content-id]')];
-    h5pDOMs.forEach((dom) => {
+    h5pDOMs.forEach((dom, index) => {
         const contentId = dom.getAttribute('data-content-id');
-        const wrapper = createExtractButton(contentId);
 
+        const options = contentSpecificOptions[index] ?? {
+          extractionMode: window.NDLASH5PEXTRACTOR.extractionMode,
+          showSolutions: window.NDLASH5PEXTRACTOR.showSolutions,
+        };
+
+        if (options.extractionMode === 'off') {
+          return;
+        }
+
+        const wrapper = createExtractButtonWrapper(contentId, options.extractionMode === 'automatic', index);
         if (dom.tagName === 'IFRAME') {
           dom.parentNode.insertAdjacentElement('afterend', wrapper);
         }
@@ -24,15 +38,17 @@ import './h5p-extractor.css';
   /**
    * Create button to trigger extraction
    * @param {string} contentId Content id of H5P content to be extracted.
+   * @param {boolean} extract True to extract right away.
    * @returns {HTMLDivElement} Button including wrapper.
    */
-  const createExtractButton = (contentId) => {
+  const createExtractButtonWrapper = (contentId, extract = false, index = 0) => {
     // Wrapper can be brought to 100% to match the WordPress page margin of the H5P content
     const wrapper = document.createElement('div');
     wrapper.classList.add('ndla-h5p-extractor-button-wrapper');
 
     const button = document.createElement('button');
     button.classList.add('wp-element-button', 'ndla-h5p-extractor-button', 'button-primary');
+    button.classList.toggle('display-none', extract);
     button.innerText = window.NDLASH5PEXTRACTOR.l10n.extract;
 
     const handler = async () => {
@@ -41,13 +57,19 @@ import './h5p-extractor.css';
         return;
       }
 
-      replaceButtonWithRepresentation(wrapper, results);
+      replaceButtonWithRepresentation(wrapper, results, contentId);
     };
 
-    button.addEventListener('click', handler);
     wrapper.append(button);
 
-    wrapperEntries.set(wrapper, { button, handler });
+    if (extract) {
+      handler();
+    }
+    else {
+      button.addEventListener('click', handler, { once: true });
+    }
+
+    wrapperEntries.set(wrapper, { button, handler, index });
     return wrapper;
   };
 
@@ -89,11 +111,12 @@ import './h5p-extractor.css';
    * Replace button with H5P content representation.
    * @param {HTMLDivElement} wrapper Wrapper of button.
    * @param {object} results Results with at least textual representation.
+   * @param {string} contentId ContentId.
    */
-  const replaceButtonWithRepresentation = (wrapper, results) => {
-    const representationDOM = createRepresentation(results);
-
+  const replaceButtonWithRepresentation = (wrapper, results, contentId) => {
     const entry = wrapperEntries.get(wrapper);
+    const representationDOM = createRepresentation(results, contentId, entry ? entry.index : 0);
+
     if (entry) {
       entry.button.removeEventListener('click', entry.handler);
       wrapperEntries.delete(wrapper);
@@ -107,9 +130,10 @@ import './h5p-extractor.css';
    * @param {object} results Results from query.
    * @param {string} results.representation Textual representation.
    * @param {string} [results.solution] Solution if available.
+   * @param {string} contentId ContentId.
    * @returns {HTMLDivElement} DOM for H5P content representation.
    */
-  const createRepresentation = (results) => {
+  const createRepresentation = (results, contentId, index = 0) => {
     const representationDOM = document.createElement('div');
     representationDOM.classList.add('ndla-h5p-extractor-representation');
 
@@ -118,7 +142,9 @@ import './h5p-extractor.css';
     exerciseDOM.innerText = results.representation;
     representationDOM.append(exerciseDOM);
 
-    if (window.NDLASH5PEXTRACTOR.showSolutions === '1' && typeof results.solution === 'string') {
+    const showSolutions = (contentSpecificOptions[index] ?? { showSolutions: window.NDLASH5PEXTRACTOR.showSolutions }).showSolutions;
+
+    if (showSolutions && typeof results.solution === 'string') {
       const solutionDOM = document.createElement('div');
       solutionDOM.classList.add('ndla-h5p-extractor-representation-solution');
       solutionDOM.innerText = results.solution;
@@ -142,5 +168,4 @@ import './h5p-extractor.css';
   };
 
   onDOMReady(run);
-
 })();

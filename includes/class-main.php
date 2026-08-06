@@ -396,10 +396,107 @@ class Main {
 	}
 
 	/**
+	 * Check if the current request is the H5P dashboard show page.
+	 *
+	 * @return bool True if viewing H5P content in the WordPress dashboard.
+	 */
+	private function is_h5p_in_dashboard() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Not processing form values, just checking URL.
+		$page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Not processing form values, just checking URL.
+		$task = isset( $_GET['task'] ) ? sanitize_text_field( wp_unslash( $_GET['task'] ) ) : '';
+
+		return 'h5p' === $page && 'show' === $task;
+	}
+
+	/**
+	 * Check if current page/post contains [h5p] shortcode.
+	 *
+	 * @return bool True if current page/post contains H5P shortcode.
+	 */
+	private function is_h5p_in_page_or_post() {
+		$post = get_post();
+		if ( $post && ! empty( $post->post_content ) ) {
+			if ( has_shortcode( $post->post_content, 'h5p' ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Build content-specific options from shortcode attributes.
+	 *
+	 * @param \WP_Post|null $post The current post, or null.
+	 * @param string        $default_extraction_mode The default extraction mode.
+	 * @param bool          $default_show_solutions The default show solutions setting.
+	 * @param bool          $allow_override Whether shortcode-level overrides are allowed.
+	 *
+	 * @return array Content-specific options indexed by discovery order.
+	 */
+	private function get_content_specific_options( $post, $default_extraction_mode, $default_show_solutions, $allow_override ) {
+		$options = array();
+
+		if ( ! $post || empty( $post->post_content ) ) {
+			return $options;
+		}
+
+		$matches = array();
+		preg_match_all( '/\[h5p([^]]*)\]/', $post->post_content, $matches, PREG_SET_ORDER );
+		foreach ( $matches as $match ) {
+			$attributes = shortcode_parse_atts( $match[1] );
+			if ( ! isset( $attributes['id'] ) ) {
+				// TODO: If H5P ever supports using slugs instead of ids, we'll need to adjust this.
+				continue;
+			}
+
+			$options[] = (object) array(
+				'id'             => (int) $attributes['id'],
+				'extractionMode' => $allow_override && isset( $attributes['ndla_extractor_mode'] )
+					? $attributes['ndla_extractor_mode']
+					: $default_extraction_mode,
+				'showSolutions'  => $allow_override && isset( $attributes['ndla_extractor_solutions'] )
+					? filter_var( $attributes['ndla_extractor_solutions'], FILTER_VALIDATE_BOOLEAN )
+					: $default_show_solutions,
+			);
+		}
+
+		return $options;
+	}
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
 		new Options();
+
+		// Defer H5P detection to a later hook when post is available.
+		add_action( 'wp', array( $this, 'maybe_enqueue_assets' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'maybe_enqueue_assets' ) );
+
+		add_action( 'wp_ajax_ndlas_h5p_extractor_extract', array( $this, 'handle_request' ) );
+	}
+
+	/**
+	 * Enqueue scripts and styles if H5P content is showing.
+	 */
+	public function maybe_enqueue_assets() {
+		if ( ! $this->is_h5p_in_page_or_post() && ! $this->is_h5p_in_dashboard() ) {
+			return;
+		}
+
+		$default_extraction_mode  = Options::get_extraction_mode();
+		$default_show_solutions   = Options::get_show_solutions();
+		$allow_override           = Options::get_allow_override();
+		$content_specific_options = array();
+
+		$content_specific_options = $this->get_content_specific_options(
+			get_post(),
+			$default_extraction_mode,
+			$default_show_solutions,
+			$allow_override
+		);
 
 		wp_enqueue_script(
 			'h5p-extractor-script',
@@ -414,12 +511,14 @@ class Main {
 			'h5p-extractor-script',
 			'NDLASH5PEXTRACTOR',
 			array(
-				'ajaxURL'       => admin_url( 'admin-ajax.php' ),
-				'nonce'         => wp_create_nonce( 'ndlas_h5p_extractor' ),
-				'l10n'          => array(
+				'ajaxURL'                => admin_url( 'admin-ajax.php' ),
+				'nonce'                  => wp_create_nonce( 'ndlas_h5p_extractor' ),
+				'l10n'                   => array(
 					'extract' => __( 'Extract', 'ndlas_h5p_extractor' ),
 				),
-				'showSolutions' => Options::get_show_solutions(),
+				'extractionMode'         => $default_extraction_mode,
+				'showSolutions'          => $default_show_solutions,
+				'contentSpecificOptions' => $content_specific_options,
 			),
 		);
 
@@ -431,7 +530,5 @@ class Main {
 			NDLASH5PEXTRACTOR_VERSION,
 			'all'
 		);
-
-		add_action( 'wp_ajax_ndlas_h5p_extractor_extract', array( $this, 'handle_request' ) );
 	}
 }

@@ -78,33 +78,93 @@ class Options {
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( 'ndlash5pextractor_option_group' );
+				do_settings_sections( 'ndlash5pextractor-admin' );
 				?>
 
-				<table class="form-table">
-					<tr>
-						<th scope="row">
-							<label for="ndlash5pextractor_option_show_solutions">
-								<?php esc_html_e( 'Show solutions', 'ndlas-h5p-extractor' ); ?>
-							</label>
-						</th>
-						<td>
-							<input
-								name="ndlash5pextractor_option[show_solutions]"
-								type="checkbox"
-								id="ndlash5pextractor_option_show_solutions"
-								value="1"
-								<?php checked( self::get_show_solutions(), true ); ?>
-							/>
-							<label for="ndlash5pextractor_option_show_solutions">
-								<?php esc_html_e( 'Show solutions underneath the extracted H5P content.', 'ndlas-h5p-extractor' ); ?>
-							</label>
-						</td>
-					</tr>
-				</table>
+				<?php $this->render_default_behavior_section(); ?>
 
 				<?php submit_button(); ?>
 			</form>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Render the "Default behavior" settings section.
+	 */
+	private function render_default_behavior_section() {
+		// Intentionally empty — WordPress renders the <h3> from the section title.
+	}
+
+	/**
+	 * Render the "Extraction mode" field.
+	 */
+	public function render_extraction_mode_field() {
+		$mode = self::get_extraction_mode();
+		?>
+		<select
+			name="ndlash5pextractor_option[extraction_mode]"
+			id="ndlash5pextractor_option_extraction_mode"
+		>
+			<option
+				value="off"
+				<?php selected( $mode, 'off' ); ?>
+			>
+				<?php esc_html_e( 'Off', 'ndlas-h5p-extractor' ); ?>
+			</option>
+			<option
+				value="trigger_by_button"
+				<?php selected( $mode, 'trigger_by_button' ); ?>
+			>
+				<?php esc_html_e( 'Trigger by button', 'ndlas-h5p-extractor' ); ?>
+			</option>
+			<option
+				value="automatic"
+				<?php selected( $mode, 'automatic' ); ?>
+			>
+				<?php esc_html_e( 'Automatic', 'ndlas-h5p-extractor' ); ?>
+			</option>
+		</select>
+		<br>
+		<span class="description">
+			<?php esc_html_e( 'Set how extraction should be handled.', 'ndlas-h5p-extractor' ); ?>
+		</span>
+		<?php
+	}
+
+	/**
+	 * Render the "Show solutions" field.
+	 */
+	public function render_show_solutions_field() {
+		?>
+		<input
+			name="ndlash5pextractor_option[show_solutions]"
+			type="checkbox"
+			id="ndlash5pextractor_option_show_solutions"
+			value="1"
+			<?php checked( self::get_show_solutions(), true ); ?>
+		/>
+		<label for="ndlash5pextractor_option_show_solutions">
+			<?php esc_html_e( 'Show solutions underneath the extracted H5P content.', 'ndlas-h5p-extractor' ); ?>
+		</label>
+		<?php
+	}
+
+	/**
+	 * Render the "Allow override" field.
+	 */
+	public function render_allow_override_field() {
+		?>
+		<input
+			name="ndlash5pextractor_option[allow_override]"
+			type="checkbox"
+			id="ndlash5pextractor_option_allow_override"
+			value="1"
+			<?php checked( self::get_allow_override(), true ); ?>
+		/>
+		<label for="ndlash5pextractor_option_allow_override">
+			<?php esc_html_e( 'Content authors can override the default behavior per H5P content.', 'ndlas-h5p-extractor' ); ?>
+		</label>
 		<?php
 	}
 
@@ -117,6 +177,51 @@ class Options {
 			'ndlash5pextractor_option',
 			array( $this, 'sanitize' )
 		);
+
+		add_settings_section(
+			'ndlash5pextractor_default_behavior',
+			__( 'Default behavior', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_section_heading' ),
+			'ndlash5pextractor-admin'
+		);
+
+		add_settings_field(
+			'ndlash5pextractor_option_extraction_mode',
+			__( 'Extraction mode', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_extraction_mode_field' ),
+			'ndlash5pextractor-admin',
+			'ndlash5pextractor_default_behavior'
+		);
+
+		add_settings_field(
+			'ndlash5pextractor_option_show_solutions',
+			__( 'Solutions', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_show_solutions_field' ),
+			'ndlash5pextractor-admin',
+			'ndlash5pextractor_default_behavior'
+		);
+
+		add_settings_section(
+			'ndlash5pextractor_overrides',
+			__( 'Overrides', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_section_heading' ),
+			'ndlash5pextractor-admin'
+		);
+
+		add_settings_field(
+			'ndlash5pextractor_option_allow_override',
+			__( 'Allow override', 'ndlas-h5p-extractor' ),
+			array( $this, 'render_allow_override_field' ),
+			'ndlash5pextractor-admin',
+			'ndlash5pextractor_overrides'
+		);
+	}
+
+	/**
+	 * Render the section heading callback.
+	 */
+	public function render_section_heading() {
+		// Intentionally empty — WordPress renders the <h3> from the section title.
 	}
 
 	/**
@@ -128,10 +233,27 @@ class Options {
 	public function sanitize( $input ) {
 		$input = (array) $input;
 
-		$new_input                   = array();
+		$new_input = array();
+
+		$valid_modes = array( 'off', 'trigger_by_button', 'automatic' );
+		if ( isset( $input['extraction_mode'] ) && in_array( $input['extraction_mode'], $valid_modes, true ) ) {
+			$new_input['extraction_mode'] = $input['extraction_mode'];
+		} else {
+			$new_input['extraction_mode'] = 'off';
+		}
 		$new_input['show_solutions'] = isset( $input['show_solutions'] ) ? true : false;
+		$new_input['allow_override'] = isset( $input['allow_override'] ) ? true : false;
 
 		return $new_input;
+	}
+
+	/**
+	 * Get extraction mode option.
+	 *
+	 * @return string Extraction mode.
+	 */
+	public static function get_extraction_mode() {
+		return ( isset( self::$options['extraction_mode'] ) ) ? self::$options['extraction_mode'] : 'off';
 	}
 
 	/**
@@ -141,6 +263,15 @@ class Options {
 	 */
 	public static function get_show_solutions() {
 		return ( isset( self::$options['show_solutions'] ) ) ? (bool) self::$options['show_solutions'] : false;
+	}
+
+	/**
+	 * Get allow override option.
+	 *
+	 * @return bool Allow override.
+	 */
+	public static function get_allow_override() {
+		return ( isset( self::$options['allow_override'] ) ) ? (bool) self::$options['allow_override'] : false;
 	}
 
 	/**

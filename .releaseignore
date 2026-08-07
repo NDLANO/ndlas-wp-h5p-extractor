@@ -4,7 +4,6 @@
 .npmrc
 .releaseignore
 .stylelintrc.json
-composer.json
 composer.lock
 docs
 eslint.config.js

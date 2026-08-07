@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2026-08-06 20:32+0200\n"
-"PO-Revision-Date: 2026-08-06 20:34+0200\n"
+"POT-Creation-Date: 2026-08-07 17:18+0200\n"
+"PO-Revision-Date: 2026-08-07 17:18+0200\n"
 "Last-Translator: Snordians Simple H5P Stats\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -21,11 +21,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: src\n"
 "X-Poedit-SearchPathExcluded-3: vendor\n"
 
-#: includes/class-main.php:449 includes/class-options.php:77
+#: includes/class-main.php:52 includes/class-options.php:111
 msgid "H5P Extractor"
 msgstr "H5P Extractor"
 
-#: includes/class-main.php:462
+#: includes/class-main.php:65
 msgid ""
 "You can override the H5P Extractor behavior by adding key-value pairs to the "
 "H5P shortcode:"
@@ -33,61 +33,76 @@ msgstr ""
 "Du kannst das Verhalten von H5P Extractor überschreiben, indem du \"Key-"
 "Value\"-Paare in den \"H5P Shortcode\" einfügst:"
 
-#: includes/class-main.php:474
+#: includes/class-main.php:77
 msgid "Example"
 msgstr "Beispiel"
 
-#: includes/class-main.php:572
-msgid "Extract"
-msgstr "Extrahiere"
+#: includes/class-main.php:120
+msgid "Extracting..."
+msgstr "Extrahiere..."
 
-#: includes/class-options.php:113
+#: includes/class-main.php:121
+msgid "Could not extract plain text."
+msgstr "Klartext konnte nicht extrahiert werden."
+
+#: includes/class-main.php:122
+msgid "Hide plain text"
+msgstr "Verstecke Klartext"
+
+#: includes/class-main.php:123
+msgid "Show as plain text"
+msgstr "Zeige als Klartext"
+
+#: includes/class-options.php:140
 msgid "Off"
 msgstr "Aus"
 
-#: includes/class-options.php:119
+#: includes/class-options.php:146
 msgid "Trigger by button"
 msgstr "Durch Button auslösen"
 
-#: includes/class-options.php:125
+#: includes/class-options.php:152
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: includes/class-options.php:130
+#: includes/class-options.php:157
 msgid "Set how extraction should be handled."
 msgstr "Lege fest, wie das Extrahieren gehandhabt werden soll."
 
-#: includes/class-options.php:148
+#: includes/class-options.php:175
 msgid "Show solutions underneath the extracted H5P content."
 msgstr "Zeige die Lösungen unterhalb des extrahierten H5P-Inhalts."
 
-#: includes/class-options.php:166
+#: includes/class-options.php:193
 msgid ""
 "Authors of posts and pages can override the default behavior per H5P content."
 msgstr ""
 "Autoren und Autorinnen von Posts und Seiten können das Standardverhalten je "
 "H5P-Inhalt überschreiben."
 
-#: includes/class-options.php:183
+#: includes/class-options.php:210
 msgid "Default behavior"
 msgstr "Standardverhalten"
 
-#: includes/class-options.php:190
+#: includes/class-options.php:217
 msgid "Extraction mode"
 msgstr "Extraktionsmodus"
 
-#: includes/class-options.php:198
+#: includes/class-options.php:225
 msgid "Solutions"
 msgstr "Lösungen"
 
-#: includes/class-options.php:206
+#: includes/class-options.php:233
 msgid "Overrides"
 msgstr "Manueller Eingriff"
 
-#: includes/class-options.php:213
+#: includes/class-options.php:240
 msgid "Allow override"
 msgstr "Manuellen Eingriff erlauben"
 
-#: ndlas-h5p-extractor.php:90
+#: ndlas-h5p-extractor.php:63
 msgid "Note: This plugin requires the H5P plugin."
 msgstr "Hinweis: Dieses Plugin benötigt das H5P-Plugin."
+
+#~ msgid "Loading..."
+#~ msgstr "Lade ..."

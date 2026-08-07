@@ -1,8 +1,24 @@
-.ndla-h5p-extractor-button-wrapper {
+.ndla-h5p-extractor-accordion {
   display: flex;
-  margin-left: 0;
-  margin-top: 0;
+  flex-direction: column;
+  margin-block-start: 0.5rem;
+  margin-inline-start: 0;
   width: 100%;
+}
+
+.ndla-h5p-extractor-accordion .ndla-h5p-extractor-button {
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  width: fit-content;
+}
+
+.ndla-h5p-extractor-accordion .ndla-h5p-extractor-button::-webkit-details-marker {
+  display: none;
+}
+
+:root :where(.is-layout-constrained) > .ndla-h5p-extractor-accordion {
+  margin-block-start: 0.5rem;
 }
 
 .ndla-h5p-extractor-representation {
@@ -17,33 +33,12 @@
   font-weight: 400;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-
-  .ndla-h5p-extractor-representation-solution {
-    border-top: 1px dotted #888888;
-    font-style: italic;
-    padding-block-start: 0.5rem;
-    text-align: end;
-    transform: scaleX(-1);
-  }
 }
 
-.h5p-wp-admin-wrapper {
-  .ndla-h5p-extractor-button {
-    left: 0;
-    margin-block-start: 1rem;
-    position: absolute;
-  }
-
-  .ndla-h5p-extractor-button {
-    position: relative;
-
-    &.display-none {
-      display: none;
-    }
-  }
-
-  .ndla-h5p-extractor-representation {
-    margin-block-start: 1rem;
-  }
+.ndla-h5p-extractor-representation .ndla-h5p-extractor-representation-solution {
+  border-top: 1px dotted #888888;
+  font-style: italic;
+  padding-block-start: 0.5rem;
+  text-align: end;
+  transform: scaleX(-1);
 }
-

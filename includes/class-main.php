@@ -117,7 +117,10 @@ class Main {
 				'ajaxURL'                => admin_url( 'admin-ajax.php' ),
 				'nonce'                  => wp_create_nonce( 'ndlas_h5p_extractor' ),
 				'l10n'                   => array(
-					'extract' => __( 'Extract', 'ndlas_h5p_extractor' ),
+					'extracting'      => __( 'Extracting...', 'ndlas_h5p_extractor' ),
+					'errorExtracting' => __( 'Could not extract plain text.', 'ndlas_h5p_extractor' ),
+					'hide'            => __( 'Hide plain text', 'ndlas_h5p_extractor' ),
+					'show'            => __( 'Show as plain text', 'ndlas_h5p_extractor' ),
 				),
 				'extractionMode'         => $default_extraction_mode,
 				'showSolutions'          => $default_show_solutions,

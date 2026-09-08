@@ -4,7 +4,7 @@
  * Plugin URI: https://github.com/ndlano/ndlas-h5p-extractor
  * Text Domain: ndlas-h5p-extractor
  * Description: Generate textual representations of H5P contents.
- * Version: 0.2.1
+ * Version: 0.2.2
  * Requires at least: 6.5
  * Requires PHP: 8.0
  * Author: NDLA, Oliver Tacke (SNORDIAN)

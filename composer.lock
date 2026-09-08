@@ -69,16 +69,16 @@
         },
         {
             "name": "snordian/h5p-extractor",
-            "version": "0.5.3",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/otacke/H5PExtractor.git",
-                "reference": "519a90a7b8aecbe35be23bf4cea1b8282408eaff"
+                "reference": "742294a5a3cfe1aedcf07a2b914a9050fd18d5f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/519a90a7b8aecbe35be23bf4cea1b8282408eaff",
-                "reference": "519a90a7b8aecbe35be23bf4cea1b8282408eaff",
+                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/742294a5a3cfe1aedcf07a2b914a9050fd18d5f5",
+                "reference": "742294a5a3cfe1aedcf07a2b914a9050fd18d5f5",
                 "shasum": ""
             },
             "require": {
@@ -102,9 +102,9 @@
             ],
             "support": {
                 "issues": "https://github.com/otacke/H5PExtractor/issues",
-                "source": "https://github.com/otacke/H5PExtractor/tree/0.5.3"
+                "source": "https://github.com/otacke/H5PExtractor/tree/0.5.4"
             },
-            "time": "2026-09-08T09:27:18+00:00"
+            "time": "2026-09-08T09:55:28+00:00"
         }
     ],
     "packages-dev": [],

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ac673a6ee645228dbaee45f176c393a",
+    "content-hash": "a810b55baefe9ef2b11cc886928cf76c",
     "packages": [
         {
             "name": "h5p/h5p-core",
@@ -69,16 +69,16 @@
         },
         {
             "name": "snordian/h5p-extractor",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/otacke/H5PExtractor.git",
-                "reference": "b050ec2cca20666a6464c13f9ed2517e8bf387f8"
+                "reference": "519a90a7b8aecbe35be23bf4cea1b8282408eaff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/b050ec2cca20666a6464c13f9ed2517e8bf387f8",
-                "reference": "b050ec2cca20666a6464c13f9ed2517e8bf387f8",
+                "url": "https://api.github.com/repos/otacke/H5PExtractor/zipball/519a90a7b8aecbe35be23bf4cea1b8282408eaff",
+                "reference": "519a90a7b8aecbe35be23bf4cea1b8282408eaff",
                 "shasum": ""
             },
             "require": {
@@ -102,9 +102,9 @@
             ],
             "support": {
                 "issues": "https://github.com/otacke/H5PExtractor/issues",
-                "source": "https://github.com/otacke/H5PExtractor/tree/0.5.2"
+                "source": "https://github.com/otacke/H5PExtractor/tree/0.5.3"
             },
-            "time": "2026-07-14T14:11:44+00:00"
+            "time": "2026-09-08T09:27:18+00:00"
         }
     ],
     "packages-dev": [],

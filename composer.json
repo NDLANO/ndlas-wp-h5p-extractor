@@ -1,6 +1,6 @@
 {
     "require": {
-        "snordian/h5p-extractor": "0.5.2"
+        "snordian/h5p-extractor": "^0.5.2"
     },
     "config": {
         "allow-plugins": {
